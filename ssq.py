@@ -14,23 +14,23 @@ import random
 
 
 def random_red():
-    red = []
+    red_ball = []
     i = 6
     while i > 0:
         temp = random.choice(range(1, 33, 1))
-        if temp in red:
+        if temp in red_ball:
             continue
         else:
-            red.append(temp)
+            red_ball.append(temp)
             i = i - 1
-        red.sort()
-    return red
+        red_ball.sort()
+    return red_ball
 
 
 def random_blue():
-    blue = []
-    blue.append(random.choice(range(1, 13, 1)))
-    return blue 
+    blue_ball = []
+    blue_ball.append(random.choice(range(1, 13, 1)))
+    return blue_ball
 
 
 def select():
@@ -52,11 +52,33 @@ def ssq():
 
 
 def input_num():
-    print("输入号码！！")
+    red_num = input("请输入6个红球号码，中间用逗号间隔：")
+    red_num = list(red_num)
+    red_num.sort()
+    if len(red_num) != 6:
+        print("您输入的红球位数不正确！！！")
+        return
+    for i in red_num:
+        if i > 36:
+            print("您输入的%d红球号码超出范围！！"%i )
+            return
+    blue_num = input("请输入蓝球号码：")
+    if blue_num > 16:
+        print("您输入的蓝球号码超出范围！！！")
+        return
+    red_num.append(blue_num)
+    num = red_num
+    openfile = open('ssq.txt', 'a')
+    openfile.write(str(num) + '\n')
+    openfile.close()
 
 
 def count_num():
-    print("统计号码！！")
+    openfile = open('ssq.txt', 'r')
+    str_num = openfile.readlines()
+    for i in str_num:
+        line = i.split(',')
+        print line
 
 
 if __name__ == '__main__':
@@ -72,4 +94,4 @@ if __name__ == '__main__':
         elif yn == 3:
             count_num()
         else:
-            break
+            print("请输入正确的编号！！！")
