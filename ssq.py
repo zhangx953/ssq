@@ -62,23 +62,46 @@ def input_num():
         if i > 36:
             print("您输入的%d红球号码超出范围！！"%i )
             return
+
     blue_num = input("请输入蓝球号码：")
-    if blue_num > 16:
+    if blue_num > 16 or blue_num < 0:
         print("您输入的蓝球号码超出范围！！！")
         return
     red_num.append(blue_num)
-    num = red_num
+    num = str(red_num)
+
     openfile = open('ssq.txt', 'a')
-    openfile.write(str(num) + '\n')
+    openfile.write(num[1:-1] + '\n')
     openfile.close()
 
 
 def count_num():
     openfile = open('ssq.txt', 'r')
     str_num = openfile.readlines()
+    RB1 = []
+    RB2 = []
+    RB3 = []
+    RB4 = []
+    RB5 = []
+    RB6 = []
+    BB = []
     for i in str_num:
-        line = i.split(',')
-        print line
+        temp = i[:-1].split(',')
+        RB1.append(int(temp[0]))
+        RB2.append(int(temp[1]))
+        RB3.append(int(temp[2]))
+        RB4.append(int(temp[3]))
+        RB5.append(int(temp[4]))
+        RB6.append(int(temp[5]))
+        BB.append(int(temp[6]))
+    print('红球第一位数：' + str(RB1))
+    print('红球第二位数：' + str(RB2))
+    print('红球第三位数：' + str(RB3))
+    print('红球第四位数：' + str(RB4))
+    print('红球第五位数：' + str(RB5))
+    print('红球第六位数：' + str(RB6))
+    print('篮球：' + str(BB))
+
 
 
 if __name__ == '__main__':
