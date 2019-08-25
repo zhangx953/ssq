@@ -21,7 +21,7 @@ for line in lines:
                 temp_new.append('0' + i)
             else:
                 temp_new.append(i)
-    print("第%d期:"%line_num ),
+    print("第%d期:"%line_num ),   # 加逗号在显示时去掉换行符号
     print temp_new
     wf.write(str(line_num) + ":" + str(temp_new) + '\n')
 
