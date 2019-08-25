@@ -103,7 +103,6 @@ def count_num():
     print('篮球：' + str(BB))
 
 
-
 if __name__ == '__main__':
     while True:
         print("*****1) 随机选择")
