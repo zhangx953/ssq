@@ -28,7 +28,7 @@ def random_red():
 
 
 def random_blue():
-    blue_ball = []
+    blue_ball = list()
     blue_ball.append(random.choice(range(1, 13, 1)))
     return blue_ball
 
@@ -78,13 +78,13 @@ def input_num():
 def count_num():
     openfile = open('ssq2.txt', 'r')
     str_num = openfile.readlines()
-    RB1 = []    #红球第一个数
-    RB2 = []    #红球第二个数
-    RB3 = []    #红球第三个数
-    RB4 = []    #红球第四个数
-    RB5 = []    #红球第五个数
-    RB6 = []    #红球第六个数
-    BB = []     #蓝球
+    RB1 = []    # 红球第一个数
+    RB2 = []    # 红球第二个数
+    RB3 = []    # 红球第三个数
+    RB4 = []    # 红球第四个数
+    RB5 = []    # 红球第五个数
+    RB6 = []    # 红球第六个数
+    BB = []     # 蓝球
 
     for i in str_num:
         # 取出7位号码的字符串
@@ -102,7 +102,7 @@ def count_num():
 
     # 按位统计显示
     print("*****统计总期数为：")
-    print("%d期"%len(BB))
+    print("%d期" % len(BB))
     print("*****数值分布情况：")
     print('红球第一位数：' + str(RB1))
     print('红球第二位数：' + str(RB2))
@@ -114,7 +114,7 @@ def count_num():
 
     # 统计各期数值求和
     i = 0
-    TT =[]
+    TT = []
     while i < len(RB1):
         TT.append(int(RB1[i]) + int(RB2[i]) + int(RB3[i]) + int(RB4[i]) + int(RB5[i]) + int(RB6[i]) + int(BB[i]))
         i += 1
@@ -122,7 +122,7 @@ def count_num():
     print TT
     i = 0
     while i < len(TT):
-        print("第%d期和值为：%d      "%(i+1,TT[i])),
+        print("第%d期和值为：%d      " % (i+1, TT[i])),
         if (i+1) % 6 == 0:
             print
         i += 1
@@ -133,7 +133,7 @@ def count_num():
     for i in TT:
         if i <= 80:
             lower += 1
-        elif i > 80 and i < 110:
+        elif (i > 80) and (i < 110):
             middle += 1
         elif i >= 110:
             higher += 1
@@ -253,22 +253,54 @@ def count_num():
     print RT
     i = 1
     while i < 34:
-        print ("红球%d共出现:%d次   "%(i,RT[i])),
+        print ("红球%d共出现:%d次   " % (i, RT[i])),
         if i % 6 == 0:
             print
         i += 1
     print
 
-    # 显示篮球各号码出现的次数
+    # 统计红球出现次数最少的数
+    i = 1
+    while i < len(RT):
+        if RT[i] == min(RT[1:]):
+            print ("%d, " % i),
+        i += 1
+    print("出现次数最少，每个数共计出现%d次！" % min(RT[1:]))
+
+    # 统计红球出现次数最多的数
+    i = 1
+    while i < len(RT):
+        if RT[i] == max(RT):
+            print ("%d, " % i),
+        i += 1
+    print("出现次数最多，每个数共计出现%d次！" % max(RT))
+
+    # 统计篮球各号码出现的次数
     print("*****蓝色球出现的次数：")
     print BT
     i = 1
     while i < 17:
-        print ("蓝球各球%d共出现:%d次   "%(i,BT[i])),
+        print ("蓝球各球%d共出现:%d次   " % (i, BT[i])),
         if i % 6 == 0:
             print
         i += 1
     print
+
+    # 统计蓝球出现次数最少的数
+    i = 1
+    while i < len(BT):
+        if BT[i] == min(BT[1:]):
+            print ("%d, " % i),
+        i += 1
+    print("出现次数最少，每个数共计出现%d次！"% min(BT[1:]))
+
+    # 统计蓝球出现次数最多的数
+    i = 1
+    while i < len(BT):
+        if BT[i] == max(BT):
+            print ("%d, " % i),
+        i += 1
+    print("出现次数最多，每个数共计出现%d次！" % max(BT))
     print
 
 
