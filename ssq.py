@@ -34,7 +34,7 @@ def random_blue():
     return blue_ball
 
 
-def select():
+def random_select():
     times = raw_input("输入投注数:")
     i = 0
     while i < int(times):
@@ -46,7 +46,7 @@ def select():
 
 def ssq():
     while True:
-        select()
+        random_select()
         yn = raw_input("是否继续投注（Y/N)？")
         if yn == 'N' or yn == 'n':
             break
@@ -69,10 +69,21 @@ def input_num():
         print("您输入的蓝球号码超出范围！！！")
         return
     red_num.append(blue_num)
-    num = str(red_num)
-
-    openfile = open('ssq.txt', 'a')
-    openfile.write(num[1:-1] + '\n')
+    num = red_num
+    temp = []
+    for i in num:
+        if i < 9:
+            temp.append('0' + str(i))
+        else:
+            temp.append(str(i))
+    num = temp
+    openfile = open('ssq2.txt', 'r')
+    lines = openfile.readlines()
+    last_line = lines[-1]
+    qi_num = int(last_line[:5]) + 1
+    openfile.close()
+    openfile = open('ssq2.txt', 'a')
+    openfile.write( str(qi_num) + ":" + str(num) + '\n')
     openfile.close()
 
 
@@ -310,12 +321,12 @@ if __name__ == '__main__':
         print("*****1) 随机选择 *****")
         print("*****2) 号码录入 *****")
         print("*****3) 号码统计 *****")
-        yn = input("请选择功能编号(1-3）：")
-        if yn == 1:
+        yn = raw_input("请选择功能编号(1-3）：")
+        if yn == '1':
             ssq()
-        elif yn == 2:
+        elif yn == '2':
             input_num()
-        elif yn == 3:
+        elif yn == '3':
             count_num()
         else:
             print("请输入正确的编号！！！")
