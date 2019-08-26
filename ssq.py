@@ -72,7 +72,7 @@ def input_num():
     num = red_num
     temp = []
     for i in num:
-        if i < 9:
+        if i <= 9:
             temp.append('0' + str(i))
         else:
             temp.append(str(i))
