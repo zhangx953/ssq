@@ -36,36 +36,68 @@ def random_blue():
 
 def random_select():
     times = raw_input("输入投注数:")
-    i = 0
-    while i < int(times):
-        red = random_red()
-        blue = random_blue()
-        print("red:" + str(red) + ", blue:" + str(blue))
-        i = i + 1
+    if times.isdigit():
+        i = 0
+        red_str = []
+        blue_str = []
+        while i < int(times):
+            red = random_red()
+            for r in red:
+                if r <= 9:
+                    red_str.append("0" + str(r))
+                else:
+                    red_str.append(str(r))
+            blue = random_blue()
+            for b in blue:
+                if b <= 9:
+                    blue_str.append('0' + str(b))
+                else:
+                    blue_str.append(str(b))
+            print("red:" + str(red_str) + ", blue:" + str(blue_str))
+            red_str = []
+            blue_str = []
+            i = i + 1
+    else:
+        print("请输入数字！！")
 
 
-def ssq():
+def ssq_select():
     while True:
         random_select()
-        yn = raw_input("是否继续投注（Y/N)？")
-        if yn == 'N' or yn == 'n':
+        yn1 = raw_input("是否继续投注（Y/N)？")
+        if yn1 == 'N' or yn1 == 'n':
             break
 
 
 def input_num():
-    red_num = input("请输入6个红球号码，中间用逗号间隔：")
-    red_num = list(red_num)
+    temp = raw_input("请输入6个红球号码，中间用逗号间隔：")
+    temp = list(temp.split(','))
+    if len(temp) != 6:
+        print("您输入的红球位数不正确！！！")
+        return
+    for t in temp:
+        if not t.isdigit():
+            print("您输入的不全为数字！！！")
+            return
+    red_num = []
+    for r in temp:
+        if int(r) <= 9:
+            red_num.append('0' + r)
+        else:
+            red_num.append(r)
     red_num.sort()
     if len(red_num) != 6:
         print("您输入的红球位数不正确！！！")
         return
     for i in red_num:
-        if i > 36:
+        if int(i) > 36:
             print("您输入的%d红球号码超出范围！！"%i )
             return
-
-    blue_num = input("请输入蓝球号码：")
-    if blue_num > 16 or blue_num < 0:
+    blue_num = raw_input("请输入蓝球号码：")
+    if not blue_num.isdigit():
+        print ("请输入数字！！！")
+        return
+    if int(blue_num) > 16 or int(blue_num) <=0:
         print("您输入的蓝球号码超出范围！！！")
         return
     red_num.append(blue_num)
@@ -321,12 +353,15 @@ if __name__ == '__main__':
         print("*****1) 随机选择 *****")
         print("*****2) 号码录入 *****")
         print("*****3) 号码统计 *****")
+        print("*****4) 退出系统 *****")
         yn = raw_input("请选择功能编号(1-3）：")
         if yn == '1':
-            ssq()
+            ssq_select()
         elif yn == '2':
             input_num()
         elif yn == '3':
             count_num()
+        elif yn == '4':
+            exit()
         else:
             print("请输入正确的编号！！！")
