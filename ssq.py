@@ -12,6 +12,7 @@
 """
 
 import random
+from pyecharts import Bar
 
 
 def random_red():
@@ -100,28 +101,35 @@ def input_num():
     if int(blue_num) > 16 or int(blue_num) <=0:
         print("您输入的蓝球号码超出范围！！！")
         return
+    if int(blue_num) <= 9:
+        blue_num = '0' + blue_num
+
     red_num.append(blue_num)
     num = red_num
+    """
     temp = []
     for i in num:
-        if i <= 9:
+        if int(i) <= 9:
             temp.append('0' + str(i))
         else:
             temp.append(str(i))
     num = temp
-    openfile = open('ssq2.txt', 'r')
+    """
+    openfile = open('ssq.txt', 'r')
     lines = openfile.readlines()
     last_line = lines[-1]
     qi_num = int(last_line[:5]) + 1
     openfile.close()
-    openfile = open('ssq2.txt', 'a')
+    openfile = open('ssq.txt', 'a')
     openfile.write( str(qi_num) + ":" + str(num) + '\n')
     openfile.close()
 
 
 def count_num():
-    openfile = open('ssq2.txt', 'r')
+    openfile = open('ssq.txt', 'r')
     str_num = openfile.readlines()
+    openfile.close()
+
     RB1 = []    # 红球第一个数
     RB2 = []    # 红球第二个数
     RB3 = []    # 红球第三个数
@@ -181,9 +189,9 @@ def count_num():
             middle += 1
         elif i >= 110:
             higher += 1
-    print("*低区：（和值小于等于80）：%d次  "%lower),
-    print("*中区：（和值大于80小于110）：%d次  "%middle),
-    print("*高区：（和值大于等于110）：%d次"%higher)
+    print("*低区：（和值小于等于80）：%d次  " % lower),
+    print("*中区：（和值大于80小于110）：%d次  " % middle),
+    print("*高区：（和值大于等于110）：%d次" % higher)
 
     # 统计每个球出现的次数
     RB = RB1 + RB2 + RB3 + RB4 + RB5 + RB6
@@ -346,6 +354,22 @@ def count_num():
         i += 1
     print("出现次数最多，每个数共计出现%d次！" % max(BT))
     print
+
+    # 利用pyecharts插件生成html格式图表
+    bar = Bar("各球出现次数统计")
+    bar.width = 1200
+    bar.height = 800
+    # bar.use_theme('dark')
+    bar_x = range(1, 34)
+    bar_red_y = RT[1:]
+    bar_blue_y = BT[1:]
+    times = 17  # 填充蓝球不足的位数
+    while times > 0:
+        bar_blue_y.append(0)
+        times -= 1
+    bar.add('红色球', bar_x, bar_red_y, is_more_utils=True)
+    bar.add('蓝色球', bar_x, bar_blue_y, is_more_utils=True)
+    bar.render('red_blue.html')
 
 
 if __name__ == '__main__':
