@@ -355,11 +355,9 @@ def count_num():
     print("出现次数最多，每个数共计出现%d次！" % max(BT))
     print
 
-    # 利用pyecharts插件生成html格式图表
-    bar = Bar("各球出现次数统计")
-    bar.width = 1200
-    bar.height = 800
-    # bar.use_theme('dark')
+    # 利用pyecharts插件生成html格式图表，统计各球号码出现的次数
+    bar = Bar("号码出现次数统计", title_pos='center', is_animation=True, width=1200, height=600, background_color="#abc", title_color="#404")
+    # bar.use_theme('dark')   # 黑色主题
     bar_x = range(1, 34)
     bar_red_y = RT[1:]
     bar_blue_y = BT[1:]
@@ -367,9 +365,21 @@ def count_num():
     while times > 0:
         bar_blue_y.append(0)
         times -= 1
-    bar.add('红色球', bar_x, bar_red_y, is_more_utils=True)
-    bar.add('蓝色球', bar_x, bar_blue_y, is_more_utils=True)
+    bar.add('红色球', bar_x, bar_red_y, is_more_utils=True, mark_line=['average'], mark_point=['max', 'min'], legend_pos='left')
+    bar.add('蓝色球', bar_x, bar_blue_y, is_more_utils=True, mark_point=['max', 'min'], xaxis_name='号码', yaxis_name='次数', legend_pos='right', legend_orient='vertical')
     bar.render('red_blue.html')
+
+    # 统计各期号码的和值
+    bar = Bar("各期和值统计", title_pos='center', is_animation=True, width=1200, height=600, background_color="#abc", title_color="#404")
+    bar_x = []
+    bar_y = TT
+    f = open('ssq.txt')
+    lines = f.readlines()
+    for i in lines:
+        bar_x.append(i[:5])
+    f.close()
+    bar.add('', bar_x, bar_y, is_more_utils=True, mark_line=['average'], mark_point=['max', 'min'])
+    bar.render('total.html')
 
 
 if __name__ == '__main__':
