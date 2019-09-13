@@ -358,7 +358,7 @@ def count_num():
 
     # 利用pyecharts插件生成html格式图表，统计各球号码出现的次数
     bar = Bar("号码出现次数统计", title_pos='center', is_animation=True, width=1200, height=600,\
-              background_color="#abc",title_color="#404")
+              background_color="#abc", title_color="#404")
     # bar.use_theme('dark')   # 黑色主题
     bar_x = range(1, 34)
     bar_red_y = RT[1:]
@@ -383,13 +383,14 @@ def count_num():
     for i in lines:
         bar_x.append(i[:5])
     f.close()
-    bar.add('', bar_x, bar_y, is_more_utils=True, mark_line=['average'], mark_point=['max', 'min'], is_label_show=True)
+    bar.add('', bar_x, bar_y, is_more_utils=True, mark_line=['average'], mark_point=['max', 'min'],  xaxis_name='期号',\
+            yaxis_name='次数', is_label_show=True)
     bar.render('stage_sum_statistics.html')
 
     # 和值区间统计
+    pie = Pie('每期和值区间统计表', width=1200, height=600, background_color="#abc", title_color="#404")
     attr = ['高区(<110y<=199)', '中区(80<y<110)', '低区(22<=y<=80)']
     v1 = [higher, middle, lower]
-    pie = Pie('每期和值区间统计表', width=1000, height=500)
     pie.add("", attr, v1, center=[50, 50], radius=[25, 50], is_legend_show=True, is_label_show=True)
     pie.render('sum_section_statistics.html')
 
